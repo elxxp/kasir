@@ -53,7 +53,7 @@ if(isset($_POST['updateProduk'])){
             <tr>
                 <td><?= $nomer ?></td>
                 <td><?= $data['namaProduk'] ?></td>
-                <td><?= $data['harga'] ?></td>
+                <td>Rp. <?= number_format($data['harga']) ?></td>
                 <td><?= $data['stok'] ?></td>
                 <form action="update-produk-stok.php" method="post">
                     <input type="hidden" name="id" value="<?= $data['produkID'] ?>">

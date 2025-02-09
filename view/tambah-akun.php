@@ -13,6 +13,7 @@ if(isset($_POST['tambahAkun'])){
         $sqlAddAkun = "INSERT INTO user (username, password, level) VALUES ('$username', '$password', '$level')";
         mysqli_query($koneksi, $sqlAddAkun);
 
+        header( "Refresh:1; url=daftar-akun.php");
         echo "berhasil menambahkan akun";
     } else {
         echo "data tidak lengkap";
