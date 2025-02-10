@@ -1,0 +1,137 @@
+.content-table {
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.content-table::-webkit-scrollbar {
+    display: none;
+}
+
+.content-table .table-header {
+    display: flex;
+    align-items: center;
+    /* position: sticky;
+    top: 0; */
+    font-weight: bold;
+    height: 40px;
+}
+.content-table .table-header .tab-nomer, .tab-nomer-data {
+    width: 10%;
+}
+.content-table .table-header .tab-pelanggan {
+    width: 40%;
+    text-align: left;
+    padding-left: 10px;
+}
+.content-table .table-header .tab-pembelian {
+    width: 50%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.content-table .table-data {
+    display: flex;
+    margin-bottom: 12px;
+}
+.content-table .table-data .tab-pelanggan-data {
+    width: 40%;
+    padding-left: 10px;
+    text-align: left;
+}
+.content-table .table-data .tab-pembelian-data {
+    width: 50%;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.content-table .table-data .tab-pelanggan-data .detail {
+    border: none;
+    outline: none;
+    font-size: 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+    height: fit-content;
+}
+.content-table .table-data h1 {
+    margin: 0;
+    font-size: 0.8rem;
+}
+.content-table .table-data span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.content-table .table-data .subdata {
+    text-align: left;
+    display: block;
+}
+.content-table .table-data .subdata h1 {
+    margin: 0;
+    font-size: 0.7rem;
+}
+.content-table .table-data .subdata p {
+    margin: 0;
+    font-size: 0.5rem;
+}
+
+.popup-detail-pelanggan {
+    display: none;
+    position: fixed;
+    z-index: 5;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px 15px;
+    height: 380px;
+    width: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+}
+.popup-detail-pelanggan i {
+    font-size: 2rem;
+}
+
+.popup-detail-pelanggan .buttons {  
+    height: 75px;
+    align-content: end;
+}
+.popup-detail-pelanggan .buttons button {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-weight: bold;
+    padding: 5px 0 6px 0;
+    color: white;
+    background-color: rgb(157, 157, 157);
+    margin-top: 5px;
+    cursor: pointer;
+}
+.overlay {
+    display: none;
+    border-radius: 15px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.515);
+}
+.delete {
+    background-color: rgb(255, 38, 38)!important;
+}
+
+
+.showOverlay {
+    display: inline;
+    animation: popupIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+.showDetail {
+    display: inline;
+    animation: popupIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
+}
+.hideDetail {
+    display: none;
+    animation: popupOut 0.9s cubic-bezier(0.175, 0.885, 0.32, 1);
+}

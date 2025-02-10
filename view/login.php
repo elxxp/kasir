@@ -19,16 +19,17 @@ if(isset($_POST['masuk'])){
 
                 $_SESSION['id_user'] = $data['id'];
                 $_SESSION['username'] = $data['username'];
+                $_SESSION['name'] = $data['name'];
                 $_SESSION['level'] = $data['level'];
                 
-                header('location: home.php');
-                exit();
+                header( "Refresh:1; url=home.php");
+                $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil masuk</p></div>";
             }
         }else{
-            echo 'password atau username salah';
+            $notif = "<div class='show notif yellow' id='notif'><i class='fa-solid fa-circle-exclamation icon'></i><p>username atau password salah</p></div>";
         }
     } else {
-        echo 'data tidak lengkap';
+        $notif = "<div class='show notif red' id='notif'><i class='fa-solid fa-circle-xmark icon'></i><p>data tidak lengkap</p></div>";
     }
 }
 ?>
@@ -38,13 +39,25 @@ if(isset($_POST['masuk'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <link rel="stylesheet" href="../lib/css/font.css">
+    <link rel="stylesheet" href="../lib/css/styleLogin.css">
+    <link rel="stylesheet" href="../lib/css/notif.css">
 </head>
 <body>
-    <h2>login</h2>
-    <form method="post">
-        <input type="text" name="username" autocomplete="off" value="<?= @$username ?>" placeholder="masukan ID kasir">
-        <input type="password" name="password" autocomplete="off" placeholder="masukan password">
-        <button name="masuk">masuk</button>
-    </form>
+    <?= @$notif ?>
+    <img src="../lib/images/back-login.jpg">
+    <div class="container">
+        <i class="fa-solid fa-box-open-full logo"></i>
+        <h2 class="title">Aplikasi Kasir</h2>
+        <form method="post">
+            <div class="input"><input type="text" name="username" autocomplete="off" value="<?= @$username ?>" placeholder="masukan ID kasir"><i class="fa-solid fa-user"></i></div>
+            <div class="input"><input type="password" name="password" autocomplete="off" placeholder="masukan password"><i class="fa-solid fa-key"></i></div>
+            
+            <div class="continue"  onclick="loadingClick()"><button name="masuk" id="buttonLoading">masuk</button></div>
+        </form>
+    </div>
 </body>
+<script src="../lib/js/scriptLogin.js"></script>
+<script src="../lib/js/notif.js"></script>
 </html>

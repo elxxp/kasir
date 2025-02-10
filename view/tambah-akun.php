@@ -5,12 +5,13 @@ require '../process/koneksi.php';
 
 if(isset($_POST['tambahAkun'])){
     @$username = $_POST['usernameNew'];
+    @$name = $_POST['nameNew'];
     @$password = $_POST['passwordNew'];
     @$level = $_POST['levelNew'];
 
     if($username != '' && $password != '' && $level != 'null'){
 
-        $sqlAddAkun = "INSERT INTO user (username, password, level) VALUES ('$username', '$password', '$level')";
+        $sqlAddAkun = "INSERT INTO user (username, name, password, level) VALUES ('$username', '$name', '$password', '$level')";
         mysqli_query($koneksi, $sqlAddAkun);
 
         header( "Refresh:1; url=daftar-akun.php");
@@ -30,6 +31,7 @@ if(isset($_POST['tambahAkun'])){
 <body>
     <form method="post">
         Username : <input type="text" name="usernameNew" placeholder="Buat username" autocomplete="off" value="<?= @$username ?>"><br><br>
+        Nama : <input type="text" name="nameNew" placeholder="Buat nama" autocomplete="off" value="<?= @$name ?>"><br><br>
         Level : <select name="levelNew">
             <option value="null"> --- pilih level --- </option>
             <option value="admin"> admin </option>

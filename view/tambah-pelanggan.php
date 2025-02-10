@@ -13,9 +13,10 @@ if(isset($_POST['tambahPel'])){
         $sql = "INSERT INTO pelanggan (namaPel, alamat, telp) VALUES ('$nama', '$alamat', '$telp')";
         mysqli_query($koneksi, $sql);
 
+        setcookie('statusAdd', 'ok', time() + 1, "/");
         header('location: daftar-pelanggan.php');
     } else {
-        echo 'data tidak lengkap';
+        $notif = "<div class='show notif red' id='notif'><i class='fa-solid fa-circle-xmark icon'></i><p>data tidak lengkap</p></div>";
     }
 }
 ?>
@@ -25,15 +26,29 @@ if(isset($_POST['tambahPel'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <?php require '../_partials/head.html'; ?>
+    <link rel="stylesheet" href="../lib/css/styleAddPelanggan.css">
 </head>
 <body>
-    <h3>Tambah pelanggan</h3>
-    <form method="post">
-        <span>Nama : </span><input type="text" placeholder="Nama pelanggan" name="namaPel" autocomplete="off"><br><br>
-        <span>Alamat : </span><input type="text" placeholder="Alamat pelanggan" name="alamat" autocomplete="off"><br><br>
-        <span>No. Telepon : </span><input type="number" placeholder="Nomor telepon pelanggan" name="telp" autocomplete="off"><br><br>
-        <button name="tambahPel">tambah</button>
-    </form>
-    <a href="daftar-pelanggan.php">kembali</a>
+    <?= @$notif ?>
+    <img src="../lib/images/back.jpg">
+    <div class="container">
+        <?php require '../_partials/header.html'; ?>
+
+        <div class="title">
+            <h3 class="title">Tambah pelanggan</h3>
+        </div>
+        
+        <form method="post">
+            <div class="input"><input type="text" placeholder="Nama pelanggan" name="namaPel" autocomplete="off" value="<?= @$nama ?>"><i class="fa-solid fa-face-laugh-wink"></i></div>
+            <div class="input"><input type="text" placeholder="Alamat pelanggan" name="alamat" autocomplete="off" value="<?= @$alamat ?>"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="input"><input type="number" placeholder="Nomor telepon pelanggan" name="telp" autocomplete="off" value="<?= @$telp ?>"><i class="fa-solid fa-phone"></i></div>
+            <button class="inForm" name="tambahPel">tambah</button>
+        </form>
+        <div class="content-buttons">
+            <button onclick=dafPelanggan()>kembali</button>
+        </div>
+    </div>
 </body>
+<?php require '../_partials/footer.html'; ?>
 </html>

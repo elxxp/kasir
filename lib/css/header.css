@@ -1,0 +1,158 @@
+/* body base */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(59, 59, 59);
+    text-align: center;
+    color: white;
+}
+img {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    object-fit: cover;
+}
+.container {
+    padding: 30px 35px;
+    border-radius: 15px;
+    width: 350px;
+    height: 450px;
+    margin-top: 3%;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 1.5px 0px #888888;
+}
+
+/* profile  */ 
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.content-header .brand {
+    display: flex;
+    align-items: baseline;
+}
+.content-header .profile {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    border-radius: 7px;
+    padding: 7px 7px 6px 7px;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+.content-header .profile:hover {
+    cursor: pointer;
+    border: 1px solid #8888886e;
+    transition: 0.2s;
+}
+.content-header i.logo {
+    margin-right: 7px;
+    font-size: 1.5rem;
+}
+.content-header i.profile-pfp {
+    font-size: 1.2rem;
+}
+
+.content-profile {
+    display: none;
+    align-items: center;
+    position: absolute;
+    margin-top: 0px;
+    font-size: 0.8rem;
+    right: 35px;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.content-profile p {
+    margin: 0;
+}
+.content-profile i {
+    font-size: 0.7rem;
+    margin-left: 5px;
+}
+.hidePopup {
+    display: none;
+}
+.showPopup {
+    animation: popupIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
+    display: flex!important;
+}
+
+.title {
+    margin-top: 20px;
+}
+.title .page-icon {
+    background-color: rgba(128, 128, 128, 0.16);
+    backdrop-filter: blur(5px);
+    font-size: 1.2rem;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #8888886e;
+    width: 20px;
+}
+.title h3 {
+    margin: 4px 0 0 0;
+}
+
+@keyframes popupIn {
+    0% {
+        opacity: 0%;
+        margin-top: 0;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes popupOut {
+    0% {
+        opacity: 100%;
+    }
+    100% {
+        opacity: 0%;
+        margin-top: 0;
+    }
+}
+
+@keyframes contentIn {
+    0% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+.content-buttons {
+    padding: 5px 0;
+    display: block;
+}
+.content-buttons button {
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 10px 0;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    width: 100%;
+    background-color: white;
+}
+button.inForm {
+    font-weight: bold;
+    padding: 10px 0;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    width: 100%;
+    background-color: white;
+}
