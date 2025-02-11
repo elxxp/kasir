@@ -3,8 +3,14 @@ session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
 
-$sql = "SELECT * FROM penjualan";
-$hasil = mysqli_query($koneksi, $sql);
+function namaProduk($id){
+    global $koneksi;
+    $sqlGetNamaProduk = "SELECT namaProduk FROM produk WHERE produkID = $id";
+    $rstGetNamaProduk = mysqli_query($koneksi, $sqlGetNamaProduk);
+    $dataProdukGetNamaProduk = $rstGetNamaProduk->fetch_assoc();
+    $produk = $dataProdukGetNamaProduk['namaProduk'];
+    return $produk;
+}
 
 function namaPelanggan($id){
     global $koneksi;
@@ -15,6 +21,15 @@ function namaPelanggan($id){
     return $pelanggan;
 }
 
+function hargaBarang($id){
+    global $koneksi;
+    $sqlGetHargaProduk = "SELECT harga FROM produk WHERE produkID = $id";
+    $rstGetHargaProduk = mysqli_query($koneksi, $sqlGetHargaProduk);
+    $dataProdukGetHargaProduk = $rstGetHargaProduk->fetch_assoc();
+    $hargaProduk = $dataProdukGetHargaProduk['harga'];
+    return $hargaProduk;
+}
+
 function jumJenisProdukTerjual($idPenjualan){
     global $koneksi;
     $sqlGetJumJenProduk = "SELECT COUNT(DISTINCT produkID) AS produk FROM detailpenjualan WHERE penjualanID = $idPenjualan";
@@ -23,6 +38,9 @@ function jumJenisProdukTerjual($idPenjualan){
     $jumJenProduk = $dataJumJenProduk['produk'];
     return $jumJenProduk;
 }
+
+$sql = "SELECT * FROM penjualan";
+$hasil = mysqli_query($koneksi, $sql);
 
 ?>
 
@@ -39,7 +57,7 @@ function jumJenisProdukTerjual($idPenjualan){
     <?= @$notif ?>
     <img src="../lib/images/back.jpg">
     <div class="container">
-        <?php require '../_partials/header.html'; ?>
+        <?php require '../_partials/header.php'; ?>
 
         <div class="title">
             <i class="fa-regular fa-file-invoice-dollar page-icon"></i>
@@ -54,64 +72,68 @@ function jumJenisProdukTerjual($idPenjualan){
                 <div class="tab-pembelian">Pembelian</div>
             </div>
 
-            <?php $nomer = 0; while($data = $hasil->fetch_assoc()): $nomer++;?>
+            <?php $nomer = 0; while($data = $hasil->fetch_assoc()): $nomer++;
+                $id = $data['penjualanID']; 
+
+                $sqlGetDaftarProduk = "SELECT * FROM detailpenjualan WHERE penjualanID = $id";
+                $rstDaftarProduk = mysqli_query($koneksi, $sqlGetDaftarProduk);
+
+                $sqlGetDaftarPenjualan = "SELECT totalHarga FROM penjualan WHERE penjualanID = $id";
+                $rstDaftarPenjualan = mysqli_query($koneksi, $sqlGetDaftarPenjualan);
+                $dataTunggalDaftarPenjualan = $rstDaftarPenjualan->fetch_assoc();
+            ?>
             <div class="overlay" id="overlay<?= $nomer ?>" onclick=closeDetail<?= $nomer ?>()></div>
             <div class="table-data">
                 <div class="tab-nomer-data"><?= $nomer ?></div>
                 <div class="tab-pelanggan-data"><div class="subdata"><h1><?= namaPelanggan($data['pelangganID']) ?></h1><p>#PG-<?= $data['pelangganID'] ?></p></div></div>
-                <div class="tab-pembelian-data"><div class="subdata"><h1>Rp. <?= number_format($data['totalHarga']) ?></h1><p><?= jumJenisProdukTerjual($data['penjualanID']) ?> Produk tercatat</p></div><span class="detail" onclick=detailPelanggan<?= $nomer ?>()>detail</span></div>
+                <div class="tab-pembelian-data"><div class="subdata"><h1>Rp. <?= number_format($data['totalHarga']) ?></h1><p><?= (jumJenisProdukTerjual($data['penjualanID']) != 0 ) ? jumJenisProdukTerjual($data['penjualanID']) . ' Produk tercatat' : 'Struk kosong' ?></p></div><span class="detail" onclick=detailPelanggan<?= $nomer ?>()>detail</span></div>
 
                 <div class="popup-detail-pelanggan idle" id="contentPopup<?= $nomer ?>">
                     <i class="fa-solid fa-receipt"></i>
-                    <h4 style="margin: 5px 0 20px 0;">Riwayat pembelian</h4>
+                    <h4 style="margin: 5px 0 30px 0;">Riwayat pembelian</h4>
 
                     <div class="content-trx">
                         <div class="header">
-                            <div class="brand"><i class="fa-solid fa-box-open-full logo"></i><p>Aplikasi Kasir v2.1</p></div>
-                            <div class="detail"><h1>2025-01-25 18:05:22</h1><p>#TRX-00</p></div>
+                        <div class="brand"><i class="fa-solid fa-box-open-full logo"></i><div class="brand-det"><h1>Aplikasi Kasir v2.1</h1><p>#P-<?= $data['pelangganID']?> <?= namaPelanggan($data['pelangganID']) ?></p></div></div>                            
+                        <div class="detail"><h1><?= $data['tanggalPenjualan'] ?></h1><p>#TRX-<?= $data['penjualanID'] ?></p></div>
+                        </div>
+
+                        <div class="tab-trx-head">
+                            <div class="tab-nomer">No</div>
+                            <div class="tab-produk">Produk</div>
+                            <div class="tab-harga">Harga</div>
+                            <div class="tab-qty">QTY</div>
+                            <div class="subtotal">Subtotal</div>
+                        </div>
+                        
+                        <div class="box-trx-data">
+                        <?php $nomerTrx = 0; while($dataProdukDaftarProduk = $rstDaftarProduk->fetch_assoc()): $nomerTrx++; ?>
+                            <div class="tab-trx-data">
+                                <div class="tab-nomer-data"><?= $nomerTrx ?></div>
+                                <div class="tab-produk-data"><?= namaProduk($dataProdukDaftarProduk['produkID']) ?></div>
+                                <div class="tab-harga-data">Rp. <?= number_format(hargaBarang($dataProdukDaftarProduk['produkID'])) ?></div>
+                                <div class="tab-qty-data"><?= $dataProdukDaftarProduk['jumlahProduk'] ?></div>
+                                <div class="subtotal-data">Rp. <?= number_format($dataProdukDaftarProduk['subtotal']) ?></div>
+                            </div>
+                        <?php endwhile; ?>
+                        </div>
+
+                        <div class="tab-trx-footer">
+                            <div class="tab-total">Total -</div>
+                            <div class="tab-total-data">Rp. <?= $dataTunggalDaftarPenjualan['totalHarga'] ? number_format($dataTunggalDaftarPenjualan['totalHarga']) : "----" ?></div>
                         </div>
                     </div>
 
                     <div class="buttons">
+                        <?php if($_SESSION['level'] != 'restocker'): ?>
                         <form action="../process/hapus-pelanggan.php" method="post"><button class="delete" name="hapus" value="<?= $data['pelangganID'] ?>">hapus pelanggan</button></form>
+                        <?php endif; ?>
                         <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
                     </div>
                 </div>
             </div>
             <?php endwhile; ?>
         </div>
-
-        <!-- <table border=1>
-            <tr>
-                <th>No</th>
-                <th>ID Pelanggan</th>
-                <th>Nama Pelanggan</th>
-                <th>Total Pembelian</th>
-                <th>Aksi</th>
-            </tr>
-
-            <?php
-            if(mysqli_num_rows($hasil) == 0): ?>
-                <td colspan=5>tidak ada data</td>
-            <?php endif; ?>
-
-            <?php 
-            $nomer = 0; 
-            while($data = $hasil->fetch_assoc()): 
-                $nomer++;
-            ?>
-                <tr>
-                    <td><?= $nomer ?></td>
-                    <td><?= $data['pelangganID'] ?></td>
-                    <td><?= namaPelanggan($data['pelangganID']) ?></td>
-                    <td>Rp. <?= number_format($data['totalHarga']) ?></td>
-                    <form action="struk.php" method="post">
-                        <input type="hidden" name="penjualanID" value="<?= $data['penjualanID'] ?>">
-                    <td><button name="struk">detail</td>
-                    </form>
-                </tr>
-            <?php endwhile; ?>
-        </table> -->
 
         <div class="content-buttons">
             <button onclick=addPenjualan()>tambah penjualan</button>

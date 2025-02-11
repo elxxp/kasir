@@ -1,5 +1,5 @@
 <div class="content-header">
-    <div class="brand"><i class="fa-solid fa-box-open-full logo"></i><p>Aplikasi Kasir v2.1</p></div>
+    <div class="brand"><i class="fa-solid fa-box-open-full logo"></i><div class="detail"><h1>Aplikasi Kasir v2.1</h1><p>Halaman <?= $_SESSION['level'] ?></p></div></div>
     <div class="profile" onclick=openPopup()><i class="fa-solid fa-circle-user profile-pfp"></i></div>
 </div>
 

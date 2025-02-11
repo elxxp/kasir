@@ -41,7 +41,7 @@ $jumAkun = mysqli_num_rows($rstJumAkun);
     <?= @$notif ?>
     <img src="../lib/images/back.jpg">
     <div class="container">
-        <?php require '../_partials/header.html'; ?>
+        <?php require '../_partials/header.php'; ?>
 
         <div class="content-welcome">
             <h1>Welcome back</h1>
@@ -53,7 +53,9 @@ $jumAkun = mysqli_num_rows($rstJumAkun);
             <div class="menu" style="animation: objectIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1);" onclick="dafPelanggan()"><i class="fa-regular fa-address-book menu-icon"></i><div class="menu-detail"><h5>Daftar pelanggan</h5><p><?= $jumPelanggan ?> Pelanggan tersimpan</p></div></div>
             <div class="menu" style="animation: objectIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);" onclick="dafPenjualan()"><i class="fa-regular fa-file-invoice-dollar menu-icon"></i><div class="menu-detail"><h5>Daftar penjualan</h5><p><?= $jumPenjualan ?> Struk telah tercetak</p></div></div>
             <div class="menu" style="animation: objectIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1);" onclick="dafProduk()"><i class="fa-regular fa-boxes-stacked menu-icon"></i><div class="menu-detail"><h5>Daftar produk</h5><div class="produk-status"><p><?= $jumProduk ?> <i class="fa-solid fa-box produk-status-icon"></i></p><p class="produk-low"><?= $jumProdukLow ?> <i class="fa-solid fa-square-info produk-status-icon"></i></p><p class="produk-out"><?= $jumProdukOut ?> <i class="fa-solid fa-square-xmark produk-status-icon"></i></p></div></div></div>
+            <?php if($_SESSION['level'] == 'admin'): ?>
             <div class="menu" style="animation: objectIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);" onclick="dafAkun()"><i class="fa-regular fa-users-rectangle menu-icon"></i><div class="menu-detail"><h5>Daftar akun</h5><p><?= $jumAkun ?> Akun aktif</p></div></div>
+            <?php endif; ?>
             </center>
         </div>
     </div>

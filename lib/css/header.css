@@ -34,7 +34,17 @@ img {
 }
 .content-header .brand {
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    text-align: left;
+}
+.content-header .brand h1 {
+    margin: 0;
+    font-size: 1rem;
+}
+.content-header .brand p {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400!important;
 }
 .content-header .profile {
     display: flex;
@@ -89,7 +99,7 @@ img {
 }
 
 .title {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .title .page-icon {
     background-color: rgba(128, 128, 128, 0.16);

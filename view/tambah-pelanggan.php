@@ -33,7 +33,7 @@ if(isset($_POST['tambahPel'])){
     <?= @$notif ?>
     <img src="../lib/images/back.jpg">
     <div class="container">
-        <?php require '../_partials/header.html'; ?>
+        <?php require '../_partials/header.php'; ?>
 
         <div class="title">
             <h3 class="title">Tambah pelanggan</h3>

@@ -81,13 +81,132 @@
     background-color: white;
     border-radius: 10px;
     padding: 30px 15px;
-    height: 380px;
-    width: 320px;
+    height: 420px;
+    width: 360px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: black;
 }
+
+.popup-detail-pelanggan .content-trx { 
+
+}
+.content-trx .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* brand */ 
+.content-trx .header .brand {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.content-trx .header .brand .brand-det {
+    margin: 0 0 0 7px;
+    text-align: left;
+}
+.content-trx .header .brand i {
+    font-size: 1.4rem!important;
+}
+.content-trx .header .brand .brand-det p {
+    text-align: left;
+    font-size: 0.7rem;
+    margin: 0;
+}
+/* detail */
+.content-trx .header .detail {
+    text-align: right;
+}
+.content-trx .header .detail h1 {
+    font-size: 0.8rem;
+    margin: 0;
+}
+.content-trx .header .detail p {
+    font-size: 0.7rem;
+    margin: 0;
+}
+
+/* head */
+.content-trx .tab-trx-head {
+    font-size: 0.7rem;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.tab-trx-head .tab-nomer {
+    width: 30px ;
+}
+.tab-trx-head .tab-produk {
+    width: 80px ;
+    text-align: left;
+}
+.tab-trx-head .tab-harga {
+    width: 100px ;
+    text-align: left;
+}
+.tab-trx-head .tab-qty {
+    width: 30px ;
+}
+.tab-trx-head .subtotal {
+    width: 110px;
+    text-align: left;
+    margin-left: 10px;
+}
+/* data */
+.content-trx .tab-trx-data {
+    font-size: 0.6rem;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+.content-trx .box-trx-data {
+    height: 160px;
+    overflow-y: hidden;
+    overflow-y: scroll;
+}
+.content-trx .box-trx-data::-webkit-scrollbar {
+    display: none;
+}
+.tab-trx-data .tab-nomer-data {
+    width: 30px ;
+}
+.tab-trx-data .tab-produk-data {
+    width: 80px ;
+    text-align: left;
+}
+.tab-trx-data .tab-harga-data {
+    width: 100px ;
+    text-align: left;
+}
+.tab-trx-data .tab-qty-data {
+    width: 30px ;
+}
+.tab-trx-data .subtotal-data {
+    width: 110px;
+    text-align: left;
+    margin-left: 10px;
+    font-size: 0.6rem;
+}
+/* footer */
+.content-trx .tab-trx-footer {
+    font-size: 0.7rem;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.tab-trx-footer .tab-total {
+    width: 280px;
+    text-align: right;
+}
+.tab-trx-footer .tab-total-data {
+    width: 120px;
+    text-align: left;
+}
+
 .popup-detail-pelanggan i {
     font-size: 2rem;
 }

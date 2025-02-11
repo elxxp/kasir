@@ -42,7 +42,7 @@ if(isset($_COOKIE['statusAdd'])){
     <?= @$notif ?>
     <img src="../lib/images/back.jpg">
      <div class="container">
-        <?php require '../_partials/header.html'; ?>
+        <?php require '../_partials/header.php'; ?>
 
         <div class="title">
             <i class="fa-regular fa-address-book page-icon"></i>
@@ -98,7 +98,9 @@ if(isset($_COOKIE['statusAdd'])){
                     </div>
 
                     <div class="buttons">
+                        <?php if($_SESSION['level'] != 'restocker'): ?>
                         <form action="../process/hapus-pelanggan.php" method="post"><button class="delete" name="hapus" value="<?= $data['pelangganID'] ?>">hapus pelanggan</button></form>
+                        <?php endif; ?>                        
                         <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
                     </div>
                 </div>
@@ -107,7 +109,9 @@ if(isset($_COOKIE['statusAdd'])){
         </div>
      
         <div class="content-buttons">
+            <?php if($_SESSION['level'] != 'restocker'): ?>
             <button onclick=addPelanggan()>tambah pelanggan</button>
+            <?php endif; ?>
             <button onclick=home()>kembali</button>
         </div>
      </div>
