@@ -42,6 +42,13 @@ function jumJenisProdukTerjual($idPenjualan){
 $sql = "SELECT * FROM penjualan";
 $hasil = mysqli_query($koneksi, $sql);
 
+if(isset($_COOKIE['addPenjualanDone'])){
+    $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>struk berhasil tersimpan</p></div>";
+}
+
+if(isset($_COOKIE['statusRemove'])){
+    $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil menghapus penjualan</p></div>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,13 +66,12 @@ $hasil = mysqli_query($koneksi, $sql);
     <div class="container">
         <?php require '../_partials/header.php'; ?>
 
-        <div class="title">
+        <div class="title" style="animation: contentIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1);">
             <i class="fa-regular fa-file-invoice-dollar page-icon"></i>
             <h3 class="title">Daftar penjualan</h3>
         </div>
-        <p><?= @$_COOKIE['statusUpdate'] ? 'Berhasil memperbarui pelanggan' : ''?></p>
 
-        <div class="content-table">
+        <div class="content-table" style="animation: contentIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);">
             <div class="table-header">
                 <div class="tab-nomer">No</div>
                 <div class="tab-pelanggan">Pelanggan</div>
@@ -85,7 +91,7 @@ $hasil = mysqli_query($koneksi, $sql);
             <div class="overlay" id="overlay<?= $nomer ?>" onclick=closeDetail<?= $nomer ?>()></div>
             <div class="table-data">
                 <div class="tab-nomer-data"><?= $nomer ?></div>
-                <div class="tab-pelanggan-data"><div class="subdata"><h1><?= namaPelanggan($data['pelangganID']) ?></h1><p>#PG-<?= $data['pelangganID'] ?></p></div></div>
+                <div class="tab-pelanggan-data"><div class="subdata"><h1><?= namaPelanggan($data['pelangganID']) ?></h1><p>#PG-<?= formatIdPelanggan($data['pelangganID']) ?></p></div></div>
                 <div class="tab-pembelian-data"><div class="subdata"><h1>Rp. <?= number_format($data['totalHarga']) ?></h1><p><?= (jumJenisProdukTerjual($data['penjualanID']) != 0 ) ? jumJenisProdukTerjual($data['penjualanID']) . ' Produk tercatat' : 'Struk kosong' ?></p></div><span class="detail" onclick=detailPelanggan<?= $nomer ?>()>detail</span></div>
 
                 <div class="popup-detail-pelanggan idle" id="contentPopup<?= $nomer ?>">
@@ -94,8 +100,8 @@ $hasil = mysqli_query($koneksi, $sql);
 
                     <div class="content-trx">
                         <div class="header">
-                        <div class="brand"><i class="fa-solid fa-box-open-full logo"></i><div class="brand-det"><h1>Aplikasi Kasir v2.1</h1><p>#P-<?= $data['pelangganID']?> <?= namaPelanggan($data['pelangganID']) ?></p></div></div>                            
-                        <div class="detail"><h1><?= $data['tanggalPenjualan'] ?></h1><p>#TRX-<?= $data['penjualanID'] ?></p></div>
+                        <div class="brand"><i class="fa-solid fa-box-open-full logo"></i><div class="brand-det"><h1>Aplikasi Kasir v2.1</h1><p>#PG-<?= formatIdPelanggan($data['pelangganID']) ?> <?= namaPelanggan($data['pelangganID']) ?></p></div></div>                            
+                        <div class="detail"><h1><?= $data['tanggalPenjualan'] ?></h1><p>#TRX-<?= formatIdPenjualan($data['penjualanID']) ?></p></div>
                         </div>
 
                         <div class="tab-trx-head">
@@ -119,14 +125,14 @@ $hasil = mysqli_query($koneksi, $sql);
                         </div>
 
                         <div class="tab-trx-footer">
-                            <div class="tab-total">Total -</div>
+                            <div class="tab-total"></div>
                             <div class="tab-total-data">Rp. <?= $dataTunggalDaftarPenjualan['totalHarga'] ? number_format($dataTunggalDaftarPenjualan['totalHarga']) : "----" ?></div>
                         </div>
                     </div>
 
                     <div class="buttons">
-                        <?php if($_SESSION['level'] != 'restocker'): ?>
-                        <form action="../process/hapus-pelanggan.php" method="post"><button class="delete" name="hapus" value="<?= $data['pelangganID'] ?>">hapus pelanggan</button></form>
+                        <?php if($_SESSION['level'] != 'restocker' && mysqli_num_rows($rstDaftarProduk) == 0): ?>
+                        <form action="../process/hapus-penjualan.php" method="post"><button class="delete" name="hapus" value="<?= $data['penjualanID'] ?>">hapus penjualan</button></form>
                         <?php endif; ?>
                         <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
                     </div>
@@ -136,8 +142,10 @@ $hasil = mysqli_query($koneksi, $sql);
         </div>
 
         <div class="content-buttons">
-            <button onclick=addPenjualan()>tambah penjualan</button>
-            <button onclick=home()>kembali</button>
+            <?php if($_SESSION['level'] != 'restocker'): ?>
+            <button onclick=addPenjualan() style="animation: contentIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1);">tambah penjualan</button>
+            <?php endif; ?>
+            <button onclick=home() style="animation: contentIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);">kembali</button>
         </div>
     </div>
 </body>

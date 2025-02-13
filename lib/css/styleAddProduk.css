@@ -34,3 +34,14 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* harga input */
+.input.harga input {
+    margin-left: 0!important;
+}
+.input.harga span {
+    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+    margin-left: 20px;
+}

@@ -163,7 +163,7 @@
     align-items: center;
 }
 .content-trx .box-trx-data {
-    height: 160px;
+    height: 200px;
     overflow-y: hidden;
     overflow-y: scroll;
 }

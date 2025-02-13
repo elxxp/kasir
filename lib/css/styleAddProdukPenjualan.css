@@ -1,0 +1,101 @@
+form {
+    margin-top: 20px;
+}
+form input {
+    margin-bottom: 10px;
+}
+form select {
+    border-radius: 7px;
+    width: 100%;
+    padding: 10px 15px;
+    outline: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid white;
+    margin-bottom: 7px;
+}
+form input[type='number']{
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid white;
+    width: 70%;
+    padding: 10px 0 10px 10px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.produk-input {
+    display: flex;
+    align-items: start;
+}
+.produk-input p {
+    color: black;
+    border-radius: 7px;
+    font-size: 0.8rem;
+    width: 30%;
+    padding: 0 0 0 20px;
+    margin: 0 5px 0 0;
+    text-align: left;
+    border: 1px solid white;
+    background-color: white;
+    height: 36px;
+    align-content: center;
+}
+
+.content-table {
+    margin-top: 20px;
+}
+/* head */
+.content-table .tab-header, .content-table .tab-footer {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+.content-table .box-tab-data {
+    margin: 5px 0;
+    height: 85px;
+    overflow-y: hidden;
+    overflow-y: scroll;
+}
+.content-table .box-tab-data::-webkit-scrollbar {
+    display: none;
+}
+.content-table .tab-data {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    margin: 2px 0;
+}
+.tab-full {
+    width: 100%;
+    padding: 35px 0;
+}
+.tab-produk {
+    width: 120px;
+    text-align: left;
+}
+.tab-harga {
+    width: 100px;
+    text-align: left;
+}
+.tab-qty {
+    width: 30px;
+}
+.subtotal {
+    width: 95px;
+    text-align: left;
+    margin-left: 5px;
+}
+.tab-total {
+    width: 250px;
+    text-align: right;
+}
+.tab-total-data {
+    width: 95px;
+    text-align: left;
+    margin-left: 5px;
+}

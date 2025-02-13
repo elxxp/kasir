@@ -8,13 +8,17 @@ if(isset($_POST['tambahPel'])){
     $telp = $_POST['telp'];
     
     if($nama != '' && $alamat != '' && $telp != ''){
-        require '../process/koneksi.php';
-
-        $sql = "INSERT INTO pelanggan (namaPel, alamat, telp) VALUES ('$nama', '$alamat', '$telp')";
-        mysqli_query($koneksi, $sql);
-
-        setcookie('statusAdd', 'ok', time() + 1, "/");
-        header('location: daftar-pelanggan.php');
+        if(strlen($telp) >= 12 && strlen($telp) < 16){
+            require '../process/koneksi.php';
+    
+            $sql = "INSERT INTO pelanggan (namaPel, alamat, telp) VALUES ('$nama', '$alamat', '$telp')";
+            mysqli_query($koneksi, $sql);
+    
+            setcookie('statusAdd', 'ok', time() + 1, "/");
+            header('location: daftar-pelanggan.php');
+        } else {
+            $notif = "<div class='show notif yellow' id='notif'><i class='fa-solid fa-circle-exclamation icon'></i><p>masukan nomor telepon yang valid</p></div>";
+        }
     } else {
         $notif = "<div class='show notif red' id='notif'><i class='fa-solid fa-circle-xmark icon'></i><p>data tidak lengkap</p></div>";
     }

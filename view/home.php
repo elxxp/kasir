@@ -15,7 +15,7 @@ $sqlGetJumProduk = "SELECT * FROM produk";
 $rstJumProduk = mysqli_query($koneksi, $sqlGetJumProduk);
 $jumProduk = mysqli_num_rows($rstJumProduk);
 
-$sqlGetJumProdukLow = "SELECT * FROM produk WHERE stok < 10 AND stok != 0";
+$sqlGetJumProdukLow = "SELECT * FROM produk WHERE stok < 15 AND stok != 0";
 $rstJumProdukLow = mysqli_query($koneksi, $sqlGetJumProdukLow);
 $jumProdukLow = mysqli_num_rows($rstJumProdukLow);
 

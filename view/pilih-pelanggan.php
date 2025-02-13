@@ -3,7 +3,7 @@ session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
 
-$sqlPelanggan = "SELECT * FROM pelanggan;";
+$sqlPelanggan = "SELECT * FROM pelanggan ORDER BY namaPel ASC";
 $rstPelanggan = mysqli_query($koneksi, $sqlPelanggan);
 
 // ngambil id penjualan abis milih pelanggan
@@ -23,21 +23,36 @@ if(@$dataProdukPenjualan['penjualanID']){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <?php require '../_partials/head.html'; ?>
+    <link rel="stylesheet" href="../lib/css/stylePilPelanggan.css">
 </head>
 <body>
-    <br><br>
-    <form action="tambah-produk-penjualan.php" method="post">
-        <select name="pelanggan">
-            <option value="null"> --- pilih pelanggan --- </option>
+    <?= @$_COOKIE['statusPilPelanggan'] ? "<div class='show notif red' id='notif'><i class='fa-solid fa-circle-xmark icon'></i><p>pilih pelanggan terlebih dahulu</p></div>" : ''?>
+    <img src="../lib/images/back.jpg">
+    <div class="container">
+        <?php require '../_partials/header.php'; ?>
+
+        <div class="title">
+            <h3 class="title">Pilih pelanggan</h3>
+        </div>
+
+        <form action="tambah-produk-penjualan.php" method="post">
+            <select name="pelanggan">
+                <option value="null"> --- pilih pelanggan --- </option>
                 <?php while($data = $rstPelanggan->fetch_assoc()): ?>
-                <option value="<?= $data['pelangganID'] ?>"><?= $data['namaPel'] ?></option>
+                <option value="<?= $data['pelangganID'] ?>">#PG-<?= formatIdPelanggan($data['pelangganID']) ?> | <?= $data['namaPel'] ?></option>
                 <?php endwhile; ?>
-        </select>
-        <input type="hidden" name="next" value="true">
-        <input type="hidden" name="addPenjualID" value="true">
-        <input type="hidden" name="penjualanID" value="<?= $penjualanID ?>">
-        <button name="tambahProduk">lanjut</button>
-    </form>
-    <a href="daftar-penjualan.php">kembali</a>
+            </select>
+            <input type="hidden" name="next" value="true">
+            <input type="hidden" name="addPenjualID" value="true">
+            <input type="hidden" name="penjualanID" value="<?= $penjualanID ?>">
+            <button class="inForm" name="tambahProduk">lanjut</button>
+        </form>
+
+        <div class="content-buttons">
+            <button onclick=dafPenjualan()>kembali</button>
+        </div>
+    </div>
 </body>
+<?php require '../_partials/footer.html'; ?>
 </html>

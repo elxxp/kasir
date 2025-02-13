@@ -3,7 +3,7 @@ session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
 
-$sql = "SELECT * FROM pelanggan";
+$sql = "SELECT * FROM pelanggan ORDER BY namaPel ASC";
 $hasil = mysqli_query($koneksi, $sql);
 
 if(isset($_POST['updatePelanggan'])){
@@ -44,13 +44,12 @@ if(isset($_COOKIE['statusAdd'])){
      <div class="container">
         <?php require '../_partials/header.php'; ?>
 
-        <div class="title">
+        <div class="title" style="animation: contentIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1);">
             <i class="fa-regular fa-address-book page-icon"></i>
             <h3 class="title">Daftar pelanggan</h3>
         </div>
-        <p><?= @$_COOKIE['statusUpdate'] ? 'Berhasil memperbarui pelanggan' : ''?></p>
 
-        <div class="content-table">
+        <div class="content-table" style="animation: contentIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);">
             <div class="table-header">
                 <div class="tab-nomer">No</div>
                 <div class="tab-nama">Nama</div>
@@ -69,7 +68,7 @@ if(isset($_COOKIE['statusAdd'])){
                         <i class="fa-solid fa-image-polaroid-user"></i>
                         <div class="information">
                             <h6>Customor ID</h6>
-                            <p>#PG-<?= $data['pelangganID'] ?></p>
+                            <p>#PG-<?= formatIdPelanggan($data['pelangganID']) ?></p>
                         </div>
                     </div>
                     
@@ -110,9 +109,9 @@ if(isset($_COOKIE['statusAdd'])){
      
         <div class="content-buttons">
             <?php if($_SESSION['level'] != 'restocker'): ?>
-            <button onclick=addPelanggan()>tambah pelanggan</button>
+            <button onclick=addPelanggan() style="animation: contentIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1);">tambah pelanggan</button>
             <?php endif; ?>
-            <button onclick=home()>kembali</button>
+            <button onclick=home() style="animation: contentIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);">kembali</button>
         </div>
      </div>
 </body>

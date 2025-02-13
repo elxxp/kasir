@@ -58,7 +58,7 @@ img {
 }
 .content-header .profile:hover {
     cursor: pointer;
-    border: 1px solid #8888886e;
+    /* border: 1px solid #8888886e; */
     transition: 0.2s;
 }
 .content-header i.logo {
@@ -111,7 +111,11 @@ img {
     width: 20px;
 }
 .title h3 {
-    margin: 4px 0 0 0;
+    margin: 4px 0 15px 0;
+}
+.title p {
+    margin: 0;
+    font-size: 0.8rem;
 }
 
 @keyframes popupIn {
@@ -137,14 +141,18 @@ img {
 @keyframes contentIn {
     0% {
         opacity: 0%;
+        transform: translateY(-10px);
     }
     100% {
         opacity: 100%;
     }
 }
 
+button {
+    cursor: pointer;
+}
 .content-buttons {
-    padding: 5px 0;
+    padding: 5px 0; 
     display: block;
 }
 .content-buttons button {
@@ -156,13 +164,22 @@ img {
     outline: none;
     width: 100%;
     background-color: white;
+    transition: 0.2s;
 }
 button.inForm {
     font-weight: bold;
-    padding: 10px 0;
+    padding: 10px 0 9px 0;
     border: none;
     border-radius: 7px;
     outline: none;
     width: 100%;
     background-color: white;
+}
+button.inForm.delete {
+    background-color: rgb(255, 38, 38)!important;
+    color: white;
+}
+button.inForm.update {
+    background-color: rgb(38, 110, 255)!important;
+    color: white;
 }
