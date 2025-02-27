@@ -75,6 +75,10 @@ function statusStok($value) {
                 <div class="tab-stok">Stok</div>
             </div>
 
+            <div class="search-box">
+                <input type="text" class="search" placeholder="cari nama, harga atau id produk">
+            </div>
+
             <div class="box-table-data">
                 <?php $nomer = 0; while($data = $hasil->fetch_assoc()):  $nomer++; ?>
                 <div class="overlay" id="overlay<?= $nomer ?>" onclick=closeProduk<?= $nomer ?>()></div>

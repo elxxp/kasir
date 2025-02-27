@@ -39,7 +39,7 @@ function jumJenisProdukTerjual($idPenjualan){
     return $jumJenProduk;
 }
 
-$sql = "SELECT * FROM penjualan";
+$sql = "SELECT * FROM penjualan ORDER BY tanggalPenjualan DESC";
 $hasil = mysqli_query($koneksi, $sql);
 
 if(isset($_COOKIE['addPenjualanDone'])){
@@ -91,7 +91,7 @@ if(isset($_COOKIE['statusRemove'])){
             <div class="overlay" id="overlay<?= $nomer ?>" onclick=closeDetail<?= $nomer ?>()></div>
             <div class="table-data">
                 <div class="tab-nomer-data"><?= $nomer ?></div>
-                <div class="tab-pelanggan-data"><div class="subdata"><h1><?= namaPelanggan($data['pelangganID']) ?></h1><p>#PG-<?= formatIdPelanggan($data['pelangganID']) ?></p></div></div>
+                <div class="tab-pelanggan-data"><div class="subdata"><h1><?= namaPelanggan($data['pelangganID']) ?></h1><p>#TRX-<?= formatIdPenjualan($data['penjualanID']) ?></p></div></div>
                 <div class="tab-pembelian-data"><div class="subdata"><h1>Rp. <?= number_format($data['totalHarga']) ?></h1><p><?= (jumJenisProdukTerjual($data['penjualanID']) != 0 ) ? jumJenisProdukTerjual($data['penjualanID']) . ' Produk tercatat' : 'Struk kosong' ?></p></div><span class="detail" onclick=detailPelanggan<?= $nomer ?>()>detail</span></div>
 
                 <div class="popup-detail-pelanggan idle" id="contentPopup<?= $nomer ?>">

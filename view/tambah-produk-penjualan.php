@@ -51,7 +51,7 @@ if(isset($_POST['tambahProduk'])){
     @$idPenjualanAdd = $_POST['idPenjualanAdd'];
     $id = $idPenjualanAdd ? $idPenjualanAdd : $idPenjualan;
 
-    $sqlProduk = "SELECT * FROM produk;";
+    $sqlProduk = "SELECT * FROM produk ORDER BY namaProduk ASC";
     $rstProduk = mysqli_query($koneksi, $sqlProduk);
 
     if(isset($_POST['tambahPenjualan'])){
@@ -119,10 +119,10 @@ if(isset($_POST['tambahProduk'])){
                 </div>
 
         <form method="post">
-            <select name="produk">
+            <select class="searchable-dropdown" name="produk">
                 <option value="null"> --- pilih produk --- </option>
                 <?php while($dataProduk = $rstProduk->fetch_assoc()): ?>
-                <option value="<?= $dataProduk['produkID'] ?>"><?= $dataProduk['namaProduk'] ?> - Rp. <?= number_format($dataProduk['harga']) ?> <!-- (<?= $dataProduk['stok'] ?>) --></option>
+                <option value="<?= $dataProduk['produkID'] ?>"><?= $dataProduk['namaProduk'] ?> - Rp. <?= number_format($dataProduk['harga']) ?></option>
                 <?php endwhile; ?>
             </select>
             <div class="produk-input"><p class="detail-stok">Stok : <strong>--  </strong></p><input type="number" name="qty" placeholder="masukan jumlah produk"></div>
@@ -198,7 +198,6 @@ $dataTunggalDaftarPenjualan = $rstDaftarPenjualan->fetch_assoc();
     </div> <!-- end container -->
 </body>
 <?php require '../_partials/footer.html'; ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $("select[name='produk']").change(function() {
@@ -217,6 +216,9 @@ $dataTunggalDaftarPenjualan = $rstDaftarPenjualan->fetch_assoc();
                 $(".detail-stok strong").text("0");
             }
         });
+    });
+    $(document).on("focus", ".select2-search__field", function() {
+        $(this).attr("placeholder", "cari nama produk" );
     });
 </script>
 </html>

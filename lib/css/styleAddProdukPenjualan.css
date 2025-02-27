@@ -48,7 +48,7 @@ input::-webkit-inner-spin-button {
 .content-table {
     margin-top: 20px;
 }
-/* head */
+
 .content-table .tab-header, .content-table .tab-footer {
     display: flex;
     align-items: center;
@@ -75,11 +75,14 @@ input::-webkit-inner-spin-button {
     padding: 35px 0;
 }
 .tab-produk {
-    width: 120px;
+    width: 140px;
     text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .tab-harga {
-    width: 100px;
+    width: 80px;
     text-align: left;
 }
 .tab-qty {
@@ -98,4 +101,55 @@ input::-webkit-inner-spin-button {
     width: 95px;
     text-align: left;
     margin-left: 5px;
+}
+
+/* select2 */
+/* outer */
+.select2-container {
+    margin-bottom: 5px;
+}
+.select2-container--default .select2-selection--single {
+    border-radius: 8px;
+    height: 40px;
+    align-content: center;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #000000;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.select2-container--default .select2-dropdown {
+    background-color: #ffffff;
+    border-radius: 7px;
+    margin-top: 5px;
+}
+
+/* option */
+.select2-container--default .select2-results__option {
+    text-align: left;
+    color: black;
+    margin: 3px 5px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: black;
+    color: white;
+}
+.select2-container--default .select2-results > .select2-results__options {
+    max-height: 241px !important;
+    overflow-y: auto !important;
+}
+.select2-container--default .select2-results > .select2-results__options::-webkit-scrollbar {
+    display: none;
+}
+
+/* search */
+input.select2-search__field {
+    padding: 7px 10px!important;
+}
+
+/* hapus tanda arrow */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    display: none !important;
 }

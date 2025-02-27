@@ -1,68 +1,78 @@
 .content-table {
-}
-
-.content-table .box-table-data {
-    height: 130px;
+    height: 200px;
     overflow: hidden;
     overflow-y: scroll;
 }
-.content-table .box-table-data::-webkit-scrollbar {
+.content-table::-webkit-scrollbar {
     display: none;
 }
+
 .content-table .table-header {
     display: flex;
     align-items: center;
+    /* position: sticky;
+    top: 0; */
     font-weight: bold;
-    height: 35px;
+    height: 40px;
 }
-.content-table .table-data {
-    display: flex;
-    align-items: center;
-    font-size: 0.7rem;
-    margin-bottom: 10px;
+.content-table .table-header .tab-nomer, .tab-nomer-data {
+    width: 10%;
 }
-.content-table .tab-nomer {
-    width: 25px;
-    font-size: 1rem!important;
-}
-.content-table .tab-produk {
-    width: 110px;
+.content-table .table-header .tab-akun {
+    width: 60%;
     text-align: left;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-left: 25px;
+    padding-left: 10px;
 }
-.content-table .tab-harga {
-    width: 100px;
+.content-table .table-header .tab-status {
+    width: 40%;
     text-align: left;
-    margin-left: 10px;
-}
-.content-table .tab-stok {
-    width: 40px;
-}
-.content-table .tab-stok.data {
-    font-weight: 900;
-}
-.content-table .tab-detail {
-    width: 40px;
-    text-align: right;
-    cursor: pointer;
-    font-weight: bold;
+    padding-left: 10px;
 }
 
-.search-box {
+.content-table .table-data {
     display: flex;
-    align-items: center;
-    justify-content: right;
-    padding-bottom: 5px;
+    margin-bottom: 12px;
 }
-input.search {
+.content-table .table-data .tab-akun-data {
+    width: 60%;
+    padding-left: 10px;
+    text-align: left;
+}
+.content-table .table-data .tab-status-data {
+    width: 40%;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.content-table .table-data .tab-akun-data .detail {
     border: none;
     outline: none;
-    padding: 7px 10px;
-    width: 100%;
+    font-size: 0.7rem;
     border-radius: 5px;
+    cursor: pointer;
+    height: fit-content;
+}
+.content-table .table-data h1 {
+    margin: 0;
+    font-size: 0.8rem;
+}
+.content-table .table-data span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.content-table .table-data .subdata {
+    text-align: left;
+    display: block;
+}
+.content-table .table-data .subdata h1 {
+    margin: 0;
+    font-size: 0.7rem;
+}
+.content-table .table-data .subdata p {
+    margin: 0;
+    font-size: 0.5rem;
 }
 
 .popup-detail-pelanggan {
@@ -107,7 +117,6 @@ input.search {
     font-weight: bold;
 }
 .popup-detail-pelanggan .buttons {  
-    height: 75px;
     align-content: end;
 }
 .popup-detail-pelanggan .buttons button {

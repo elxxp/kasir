@@ -38,7 +38,8 @@ if(isset($_POST['masuk'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="icon" href="../lib/images/fav.png">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <link rel="stylesheet" href="../lib/css/font.css">
     <link rel="stylesheet" href="../lib/css/styleLogin.css">
@@ -51,8 +52,8 @@ if(isset($_POST['masuk'])){
         <i class="fa-solid fa-box-open-full logo"></i>
         <h2 class="title">Aplikasi Kasir</h2>
         <form method="post">
-            <div class="input"><input type="text" name="username" autocomplete="off" value="<?= @$username ?>" placeholder="masukan ID kasir"><i class="fa-solid fa-user"></i></div>
-            <div class="input"><input type="password" name="password" autocomplete="off" placeholder="masukan password"><i class="fa-solid fa-key"></i></div>
+            <div class="input"><input type="text" name="username" autocomplete="off" value="<?= @$username ?>" placeholder="ID kasir"><i class="fa-solid fa-user"></i></div>
+            <div class="input"><input type="password" name="password" autocomplete="off" placeholder="password"><i class="fa-solid fa-key"></i></div>
             
             <div class="continue"  onclick="loadingClick()"><button name="masuk" id="buttonLoading">masuk</button></div>
         </form>

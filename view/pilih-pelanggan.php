@@ -37,10 +37,10 @@ if(@$dataProdukPenjualan['penjualanID']){
         </div>
 
         <form action="tambah-produk-penjualan.php" method="post">
-            <select name="pelanggan">
+            <select name="pelanggan" class="searchable-dropdown">
                 <option value="null"> --- pilih pelanggan --- </option>
                 <?php while($data = $rstPelanggan->fetch_assoc()): ?>
-                <option value="<?= $data['pelangganID'] ?>">#PG-<?= formatIdPelanggan($data['pelangganID']) ?> | <?= $data['namaPel'] ?></option>
+                <option value="<?= $data['pelangganID'] ?>">#PG-<?= formatIdPelanggan($data['pelangganID']) ?> - <?= $data['namaPel'] ?></option>
                 <?php endwhile; ?>
             </select>
             <input type="hidden" name="next" value="true">
@@ -55,4 +55,9 @@ if(@$dataProdukPenjualan['penjualanID']){
     </div>
 </body>
 <?php require '../_partials/footer.html'; ?>
+<script>
+    $(document).on("focus", ".select2-search__field", function() {
+        $(this).attr("placeholder", "cari nama atau id pelanggan" );
+    });
+</script>
 </html>

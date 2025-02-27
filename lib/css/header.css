@@ -9,6 +9,9 @@ body {
     text-align: center;
     color: white;
 }
+body::-webkit-scrollbar {
+    display: none;
+}
 img {
     position: fixed;
     z-index: -1;
@@ -183,3 +186,7 @@ button.inForm.update {
     background-color: rgb(38, 110, 255)!important;
     color: white;
 }
+
+/* select.searchable-dropdown {
+    margin: 0 0 50px 0;
+} */

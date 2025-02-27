@@ -140,12 +140,13 @@
     width: 30px ;
 }
 .tab-trx-head .tab-produk {
-    width: 80px ;
+    width: 100px ;
     text-align: left;
 }
 .tab-trx-head .tab-harga {
-    width: 100px ;
+    width: 75px ;
     text-align: left;
+    margin-left: 5px;
 }
 .tab-trx-head .tab-qty {
     width: 30px ;
@@ -174,12 +175,16 @@
     width: 30px ;
 }
 .tab-trx-data .tab-produk-data {
-    width: 80px ;
+    width: 100px;
     text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .tab-trx-data .tab-harga-data {
-    width: 100px ;
+    width: 75px ;
     text-align: left;
+    margin-left: 5px;
 }
 .tab-trx-data .tab-qty-data {
     width: 30px ;
