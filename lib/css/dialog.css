@@ -1,0 +1,13 @@
+.overlayDial {
+    position: absolute;
+    margin-top: 41px;
+    z-index: 49;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.515);
+    width: 420px;
+    height: 510px;
+}
+.popupDial {
+    position: fixed;
+    z-index: 50;
+}

@@ -1,12 +1,12 @@
-.content-table {
-    height: 200px;
+.content-table .box-table-data {
+    padding-top: 5px;
     overflow: hidden;
     overflow-y: scroll;
+    border-radius: 3px;
 }
-.content-table::-webkit-scrollbar {
+.content-table .box-table-data::-webkit-scrollbar {
     display: none;
 }
-
 .content-table .table-header {
     display: flex;
     align-items: center;
@@ -58,6 +58,22 @@
 .content-table .table-data .subdata p {
     margin: 0;
     font-size: 0.5rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+input.search {
+    border: none;
+    outline: none;
+    padding: 7px 10px;
+    width: 100%;
+    border-radius: 6px;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.145);
+    border: 0.5px solid rgba(128, 128, 128, 0.145);
 }
 
 .popup-detail-pelanggan {
@@ -131,6 +147,18 @@
     background-color: rgb(255, 38, 38)!important;
 }
 
+.data-not-found {
+    margin: 20px 0;
+}
+.data-not-found p {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.data-not-found i {
+    margin: 7px 0;
+    font-size: 1.7rem;
+}
 
 .showOverlay {
     display: inline;

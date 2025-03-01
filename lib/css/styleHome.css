@@ -1,7 +1,7 @@
 .content-welcome {
     margin: 50px 0 20px 0;
 }
-.content-welcome h1, p {
+.content-welcome h1, .content-welcome p {
     margin: 0;
 }
 

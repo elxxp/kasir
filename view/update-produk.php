@@ -2,6 +2,8 @@
 session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
+require '../process/functions.php';
+pageExcept('kasir');
 
 if(isset($_POST['updateProduk']) || isset($_POST['deleteProduk'])){
     $idProduk = $_POST['updateProduk'];
@@ -14,6 +16,7 @@ if(isset($_POST['updateProduk']) || isset($_POST['deleteProduk'])){
 
         setcookie('statusRemove', 'ok', time() + 1, "/");
         header('location: ../view/daftar-produk.php');
+        exit;   
     }
     
     if(isset($_POST['idProduk'])){
@@ -54,22 +57,6 @@ if(isset($_POST['updateProduk']) || isset($_POST['deleteProduk'])){
     $rstProduk = mysqli_query($koneksi, $sqlGetProduk);
     $produk = $rstProduk->fetch_assoc();
 
-    function namaProduk($id){
-        global $koneksi;
-        $sqlGetNamaProduk = "SELECT namaProduk FROM produk WHERE produkID = $id";
-        $rstGetNamaProduk = mysqli_query($koneksi, $sqlGetNamaProduk);
-        $dataProdukGetNamaProduk = $rstGetNamaProduk->fetch_assoc();
-        $produk = $dataProdukGetNamaProduk['namaProduk'];
-        return $produk;
-    }
-    function hargaBarang($id){
-        global $koneksi;
-        $sqlGetHargaProduk = "SELECT harga FROM produk WHERE produkID = $id";
-        $rstGetHargaProduk = mysqli_query($koneksi, $sqlGetHargaProduk);
-        $dataProdukGetHargaProduk = $rstGetHargaProduk->fetch_assoc();
-        $hargaProduk = $dataProdukGetHargaProduk['harga'];
-        return $hargaProduk;
-    }
 } else {
     setcookie('statusUpdError', 'ok', time() + 1, "/");
     header('location: daftar-produk.php');

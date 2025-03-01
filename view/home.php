@@ -2,6 +2,7 @@
 session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
+require '../process/functions.php';
 
 $sqlGetJumPelanggan = "SELECT * FROM pelanggan";
 $rstJumPelanggan = mysqli_query($koneksi, $sqlGetJumPelanggan);
@@ -26,6 +27,10 @@ $jumProdukOut = mysqli_num_rows($rstJumProdukOut);
 $sqlGetJumAkun = "SELECT * FROM user";
 $rstJumAkun = mysqli_query($koneksi, $sqlGetJumAkun);
 $jumAkun = mysqli_num_rows($rstJumAkun);
+
+if(isset($_COOKIE['notAllowed'])){
+    $notif = "<div class='show notif red' id='notif'><i class='fa-solid fa-circle-xmark icon'></i><p>akses ditolak</p></div>";
+}
 
 ?>
 <!DOCTYPE html>

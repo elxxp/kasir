@@ -1,6 +1,8 @@
 <?php
 session_start();
 require '../process/cek.php';
+require '../process/functions.php';
+pageOnly('admin');
 
 if(isset($_POST['tambahProduk'])){
     $nama = $_POST['namaProduk'];

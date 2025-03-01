@@ -2,6 +2,7 @@
 session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
+require '../process/functions.php';
 
 $sql = "SELECT * FROM pelanggan ORDER BY namaPel ASC";
 $hasil = mysqli_query($koneksi, $sql);
@@ -50,61 +51,67 @@ if(isset($_COOKIE['statusAdd'])){
         </div>
 
         <div class="content-table" style="animation: contentIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);">
+            <div class="search-box">
+                <input type="text" class="search" name="findData" autocomplete="off" placeholder="cari pelanggan">
+            </div>
+
             <div class="table-header">
                 <div class="tab-nomer">No</div>
                 <div class="tab-nama">Nama</div>
             </div>
 
-            <?php $nomer = 0; while($data = $hasil->fetch_assoc()): $nomer++;?>
-            <div class="overlay" id="overlay<?= $nomer ?>" onclick=closeDetail<?= $nomer ?>()></div>
-            <div class="table-data">
-                <div class="tab-nomer-data"><?= $nomer ?></div>
-                <div class="tab-nama-data"><div class="subdata"><h1><?= $data['namaPel'] ?></h1><p><?= $data['alamat'] ?></p></div><span class="detail" onclick=detailPelanggan<?= $nomer ?>()>detail</span></div>
-
-                <div class="popup-detail-pelanggan idle" id="contentPopup<?= $nomer ?>">
-                    <i class="fa-solid fa-user-vneck"></i>
-                    <h4 style="margin: 5px 0 20px 0;">Detail Pelanggan</h4>
-                    <div class="detail-data">
-                        <i class="fa-solid fa-image-polaroid-user"></i>
-                        <div class="information">
-                            <h6>Customor ID</h6>
-                            <p>#PG-<?= formatIdPelanggan($data['pelangganID']) ?></p>
+            <div class="box-table-data" style="height: <?= ($_SESSION['level'] != 'restocker') ? "122px" : "163px" ?>;">
+                <?php $nomer = 0; while($data = $hasil->fetch_assoc()): $nomer++;?>
+                <div class="overlay" id="overlay<?= $nomer ?>" onclick=closeDetail<?= $nomer ?>()></div>
+                <div class="table-data">
+                    <div class="tab-nomer-data"><?= $nomer ?></div>
+                    <div class="tab-nama-data"><div class="subdata"><h1><?= $data['namaPel'] ?></h1><p><?= $data['alamat'] ?></p></div><span class="detail" onclick=detailPelanggan<?= $nomer ?>()>detail</span></div>
+    
+                    <div class="popup-detail-pelanggan idle" id="contentPopup<?= $nomer ?>">
+                        <i class="fa-solid fa-user-vneck"></i>
+                        <h4 style="margin: 5px 0 20px 0;">Detail Pelanggan</h4>
+                        <div class="detail-data">
+                            <i class="fa-solid fa-image-polaroid-user"></i>
+                            <div class="information">
+                                <h6>Customor ID</h6>
+                                <p>#PG-<?= formatIdPelanggan($data['pelangganID']) ?></p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="detail-data">
-                        <i class="fa-solid fa-face-laugh-wink"></i>
-                        <div class="information">
-                            <h6>Nama lengkap</h6>
-                            <p><?= $data['namaPel'] ?></p>
+                        
+                        <div class="detail-data">
+                            <i class="fa-solid fa-face-laugh-wink"></i>
+                            <div class="information">
+                                <h6>Nama lengkap</h6>
+                                <p><?= $data['namaPel'] ?></p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="detail-data">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <div class="information">
-                            <h6>Alamat</h6>
-                            <p><?= $data['alamat'] ?></p>
+    
+                        <div class="detail-data">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div class="information">
+                                <h6>Alamat</h6>
+                                <p><?= $data['alamat'] ?></p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="detail-data">
-                        <i class="fa-solid fa-phone"></i>
-                        <div class="information">
-                            <h6>Nomor telepon</h6>
-                            <p><?= $data['telp'] ?></p>
+    
+                        <div class="detail-data">
+                            <i class="fa-solid fa-phone"></i>
+                            <div class="information">
+                                <h6>Nomor telepon</h6>
+                                <p><?= $data['telp'] ?></p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="buttons">
-                        <?php if($_SESSION['level'] != 'restocker'): ?>
-                        <form action="../process/hapus-pelanggan.php" method="post"><button class="delete" name="hapus" value="<?= $data['pelangganID'] ?>">hapus pelanggan</button></form>
-                        <?php endif; ?>                        
-                        <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
+    
+                        <div class="buttons">
+                            <?php if($_SESSION['level'] != 'restocker'): ?>
+                            <form action="../process/hapus-pelanggan.php" method="post"><button class="delete" name="hapus" value="<?= $data['pelangganID'] ?>">hapus pelanggan</button></form>
+                            <?php endif; ?>                        
+                            <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
+                        </div>
                     </div>
                 </div>
+                <?php endwhile; ?>
             </div>
-            <?php endwhile; ?>
         </div>
      
         <div class="content-buttons">
@@ -128,5 +135,24 @@ if(isset($_COOKIE['statusAdd'])){
         document.getElementById('overlay<?= $order ?>').classList.remove("showOverlay")
     }
     <?php endwhile; ?>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.querySelector(".search");
+    const resultsContainer = document.querySelector(".box-table-data");
+
+    searchInput.addEventListener("keyup", function() {
+        let query = searchInput.value;
+        
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "../process/find-pelanggan.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                resultsContainer.innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send("query=" + encodeURIComponent(query));
+        });
+    });
 </script>
 </html>

@@ -32,6 +32,10 @@ if(isset($_POST['masuk'])){
         $notif = "<div class='show notif red' id='notif'><i class='fa-solid fa-circle-xmark icon'></i><p>data tidak lengkap</p></div>";
     }
 }
+
+if(isset($_COOKIE['notAllowed'])){
+    $notif = "<div class='show notif yellow' id='notif'><i class='fa-solid fa-circle-exclamation icon'></i><p>sihlakan login terlebih dahulu</p></div>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

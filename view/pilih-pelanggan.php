@@ -2,6 +2,8 @@
 session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
+require '../process/functions.php';
+pageExcept('restocker');
 
 $sqlPelanggan = "SELECT * FROM pelanggan ORDER BY namaPel ASC";
 $rstPelanggan = mysqli_query($koneksi, $sqlPelanggan);

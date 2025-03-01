@@ -2,33 +2,8 @@
 session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
-
-function namaProduk($id){
-    global $koneksi;
-    $sqlGetNamaProduk = "SELECT namaProduk FROM produk WHERE produkID = $id";
-    $rstGetNamaProduk = mysqli_query($koneksi, $sqlGetNamaProduk);
-    $dataProdukGetNamaProduk = $rstGetNamaProduk->fetch_assoc();
-    $produk = $dataProdukGetNamaProduk['namaProduk'];
-    return $produk;
-}
-
-function namaPelanggan($id){
-    global $koneksi;
-    $sqlGetNamaPelanggan = "SELECT namaPel FROM pelanggan WHERE pelangganID = $id";
-    $rstGetNamaPelanggan = mysqli_query($koneksi, $sqlGetNamaPelanggan);
-    $dataProdukGetNamaPelanggan = $rstGetNamaPelanggan->fetch_assoc();
-    $pelanggan = $dataProdukGetNamaPelanggan['namaPel'];
-    return $pelanggan;
-}
-
-function hargaBarang($id){
-    global $koneksi;
-    $sqlGetHargaProduk = "SELECT harga FROM produk WHERE produkID = $id";
-    $rstGetHargaProduk = mysqli_query($koneksi, $sqlGetHargaProduk);
-    $dataProdukGetHargaProduk = $rstGetHargaProduk->fetch_assoc();
-    $hargaProduk = $dataProdukGetHargaProduk['harga'];
-    return $hargaProduk;
-}
+require '../process/functions.php';
+pageExcept('restocker');
 
 if(isset($_POST['addPenjualanDone'])){
     setcookie('addPenjualanDone', 'ok', time() + 1, "/");

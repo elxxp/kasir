@@ -2,6 +2,7 @@
 session_start();
 require '../process/cek.php';
 require '../process/koneksi.php';
+require '../process/functions.php';
 
 $sql = "SELECT * FROM produk ORDER BY namaProduk ASC";
 $hasil = mysqli_query($koneksi, $sql);
@@ -25,24 +26,14 @@ if(isset($_POST['updateProduk'])){
 if(isset($_COOKIE['statusAdd'])){
     $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil menambahkan produk</p></div>";
 }
+if(isset($_COOKIE['statusRemove'])){
+    $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil menghapus produk</p></div>";
+}
 if(isset($_COOKIE['statusUpdError'])){
     $notif = "<div class='show notif yellow' id='notif'><i class='fa-solid fa-circle-exclamation icon'></i><p>pilih produk terlebih dahulu</p></div>";
 }
 if(isset($_COOKIE['statusUpdSuccess'])){
     $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>perubahan produk berhasil disimpan</p></div>";
-}
-if(isset($_COOKIE['statusRemove'])){
-    $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil menghapus produk</p></div>";
-}
-
-function statusStok($value) {
-    if ($value == 0) {
-        return 'rgb(221, 0, 0)';
-    } elseif ($value < 15) {
-        return 'rgb(228, 149, 0)';
-    } else {
-        return 'rgb(0 201 0)';
-    }
 }
 
 ?>
@@ -68,6 +59,10 @@ function statusStok($value) {
         </div>
         
         <div class="content-table" style="animation: contentIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);">
+            <div class="search-box">
+                <input type="text" class="search" name="findData" autocomplete="off" placeholder="cari produk">
+            </div>
+
             <div class="table-header">
                 <div class="tab-nomer">No</div>
                 <div class="tab-produk">Produk</div>
@@ -75,11 +70,7 @@ function statusStok($value) {
                 <div class="tab-stok">Stok</div>
             </div>
 
-            <div class="search-box">
-                <input type="text" class="search" placeholder="cari nama, harga atau id produk">
-            </div>
-
-            <div class="box-table-data">
+            <div class="box-table-data" style="height: <?= ($_SESSION['level'] != 'admin') ? "170px" : "130px" ?>;">
                 <?php $nomer = 0; while($data = $hasil->fetch_assoc()):  $nomer++; ?>
                 <div class="overlay" id="overlay<?= $nomer ?>" onclick=closeProduk<?= $nomer ?>()></div>
                 <div class="table-data">
@@ -157,5 +148,24 @@ function statusStok($value) {
         document.getElementById('overlay<?= $order ?>').classList.remove("showOverlay")
     }
     <?php endwhile; ?>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.querySelector(".search");
+    const resultsContainer = document.querySelector(".box-table-data");
+
+    searchInput.addEventListener("keyup", function() {
+        let query = searchInput.value;
+        
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "../process/find-produk.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                resultsContainer.innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send("query=" + encodeURIComponent(query));
+        });
+    });
 </script>
 </html>

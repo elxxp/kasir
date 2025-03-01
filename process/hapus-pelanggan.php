@@ -1,5 +1,8 @@
 <?php
 require 'koneksi.php';
+require 'functions.php';
+pageExcept('restocker');
+
 if(isset($_POST['hapus'])){
     $id = $_POST['hapus'];
 

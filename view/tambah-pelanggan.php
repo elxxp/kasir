@@ -1,6 +1,8 @@
 <?php
 session_start();
 require '../process/cek.php';
+require '../process/functions.php';
+pageExcept('restocker');
 
 if(isset($_POST['tambahPel'])){
     $nama = $_POST['namaPel'];

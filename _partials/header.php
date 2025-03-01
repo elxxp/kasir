@@ -7,17 +7,14 @@
     <p>Keluar</p><i class="fa-solid fa-person-to-door"></i>
 </div>
 
-<?php 
-function formatIdAkun($number) {
-    return str_pad($number, 3, '0', STR_PAD_LEFT);
-}
-function formatIdPelanggan($number) {
-    return str_pad($number, 4, '0', STR_PAD_LEFT);
-}
-function formatIdProduk($number) {
-    return str_pad($number, 5, '0', STR_PAD_LEFT);
-}
-function formatIdPenjualan($number) {
-    return str_pad($number, 6, '0', STR_PAD_LEFT);
-}
-?>
+<?php
+require '../process/koneksi.php';
+$currID = $_SESSION['id_user'];
+
+$sqlUpdateUser = "SELECT * FROM user WHERE id = $currID ";
+$hasilUpdateUser = mysqli_query($koneksi, $sqlUpdateUser);
+$updateUser = $hasilUpdateUser->fetch_assoc();
+
+$_SESSION['username'] = $updateUser['username'];
+$_SESSION['name'] = $updateUser['name'];
+$_SESSION['level'] = $updateUser['level'];

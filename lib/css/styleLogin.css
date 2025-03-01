@@ -40,7 +40,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid rgba(128, 128, 128, 0.145);
     border-radius: 7px;
     padding: 10px 10px;
     margin-bottom: 5px;
