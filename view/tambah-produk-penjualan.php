@@ -71,6 +71,30 @@ if(isset($_POST['tambahProduk'])){
         }
     }
 
+    if(isset($_POST['hapusProdukPenjualan'])){
+        $idDetail = $_POST['hapusProdukPenjualan'];
+        $produkID = $_POST['hapusProdukPenjualan-ProdukID'];
+        $qty = $_POST['hapusProdukPenjualan-qty'];
+
+        $sqlRemoveProdukPenjualan = "DELETE FROM detailpenjualan WHERE detailID = $idDetail";
+        mysqli_query($koneksi, $sqlRemoveProdukPenjualan);
+
+        //----
+
+        $sqlCountTotalSubtotal = "SELECT SUM(subtotal) AS totalPembelian FROM detailpenjualan WHERE penjualanID = $id;";
+        $rstCountTotalSubtotal = mysqli_query($koneksi, $sqlCountTotalSubtotal);
+        $dataTotal = $rstCountTotalSubtotal->fetch_assoc();
+        $dataTotal['totalPembelian'] != 0? $total = $dataTotal['totalPembelian']: $total = 0;
+
+        $sqlUpdTotalPembelian = "UPDATE penjualan SET totalHarga = $total WHERE penjualanID = $id";
+        mysqli_query($koneksi, $sqlUpdTotalPembelian);
+
+        $sqlUpdStok = "UPDATE produk SET stok = stok + $qty WHERE produkID = $produkID";
+        mysqli_query($koneksi, $sqlUpdStok);
+
+        $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil menghapus produk</p></div>";
+    }
+
     if($idPelanggan != 'null'){ ?>
 
         <!DOCTYPE html>
@@ -109,7 +133,6 @@ if(isset($_POST['tambahProduk'])){
             <button class="inForm" name="tambahProduk">tambah produk</button> <!-- looping form sama kayak abis milih pelanggan -->
         </form>
 
-
     <?php } else {
         setcookie('statusPilPelanggan', 'ok', time() + 1, "/");
         header('location: pilih-pelanggan.php');
@@ -119,7 +142,7 @@ if(isset($_POST['tambahProduk'])){
     header('location: pilih-pelanggan.php');
 }
 
-$sqlGetDaftarProduk = "SELECT * FROM detailpenjualan WHERE penjualanID = $id";
+$sqlGetDaftarProduk = "SELECT * FROM detailpenjualan WHERE penjualanID = $id ORDER BY detailID DESC";
 $rstDaftarProduk = mysqli_query($koneksi, $sqlGetDaftarProduk);
 
 $sqlGetDaftarPenjualan = "SELECT totalHarga FROM penjualan WHERE penjualanID = $id";
@@ -129,6 +152,7 @@ $dataTunggalDaftarPenjualan = $rstDaftarPenjualan->fetch_assoc();
 
         <div class="content-table">
             <div class="tab-header">
+                <div class="tab-aksi head"></div>
                 <div class="tab-produk head">Produk</div>
                 <div class="tab-harga head">Harga</div>
                 <div class="tab-qty head">QTY</div>
@@ -138,13 +162,32 @@ $dataTunggalDaftarPenjualan = $rstDaftarPenjualan->fetch_assoc();
             <div class="box-tab-data">
 
             <?php if(mysqli_num_rows($rstDaftarProduk) != 0){ ?>
-                <?php while($dataProdukDaftarProduk = $rstDaftarProduk->fetch_assoc()): ?>
+                <?php $nomer = 0; while($dataProdukDaftarProduk = $rstDaftarProduk->fetch_assoc()): $nomer++;?>
         
                     <div class="tab-data">
+                        <div class="tab-aksi data" onclick=openDialog<?= $nomer ?>()><i class="fa-solid fa-circle-minus"></i></div>
                         <div class="tab-produk data"><?= namaProduk($dataProdukDaftarProduk['produkID']) ?></div>
                         <div class="tab-harga data">Rp. <?= number_format(hargaBarang($dataProdukDaftarProduk['produkID'])) ?></div>
                         <div class="tab-qty data"><?= $dataProdukDaftarProduk['jumlahProduk'] ?></div>
                         <div class="subtotal data">Rp. <?= number_format($dataProdukDaftarProduk['subtotal']) ?></div>
+                    </div>
+
+                    <!-- confirm dialog -->
+                    <div class="overlayDial" id="overlayDial<?= $nomer ?>"></div>
+                    <div class="contentDial" id="contentDial<?= $nomer ?>" style="height: 110px;">
+                        <form class="formDial" method="post">
+                            <p class="title"><i class="fa-solid fa-triangle-exclamation"></i> Konfirmasi aksi</p>
+                            <p class="sub">Hapus <strong><?= namaProduk($dataProdukDaftarProduk['produkID']) ?></strong> dari penjualan ini? <br><br> <strong>stok produk akan dikembalikan.</strong></p>
+                                <div class="buttons">
+                                    <button class="noDial" type="button" onclick=closeDialog<?= $nomer ?>()>batal</button>
+                                    <input type="hidden" name="pelanggan" value="<?= $idPelanggan ?>"> <!-- biar id pelanggan e ketangkep terus -->
+                                    <input type="hidden" name="idPenjualanAdd" value="<?= $id ?>"> <!-- biar id penjualan e ketangkep terus -->
+                                    <input type="hidden" name="hapusProdukPenjualan" value="<?= $dataProdukDaftarProduk['detailID'] ?>"> <!-- buat nambah produk penjualan -->
+                                    <input type="hidden" name="hapusProdukPenjualan-ProdukID" value="<?= $dataProdukDaftarProduk['produkID'] ?>"> <!-- buat ambil produk -->
+                                    <input type="hidden" name="hapusProdukPenjualan-qty" value="<?= $dataProdukDaftarProduk['jumlahProduk'] ?>"> <!-- buat ambil qty -->
+                                    <button class="yesDial" name="tambahProduk">hapus</button>
+                                </div>
+                        </form>
                     </div>
                     
                 <?php endwhile; ?>
@@ -169,11 +212,23 @@ $dataTunggalDaftarPenjualan = $rstDaftarPenjualan->fetch_assoc();
         <div class="content-buttons">
             <form method="post" style="margin: 0;"><button name="addPenjualanDone">selesai</button></form>
         </div>
+
         <?php endif; ?>
-    </div> <!-- end container -->
+    </div>
 </body>
 <?php require '../_partials/footer.html'; ?>
 <script>
+    <?php $orderProPen = 0; while($orderProPen < mysqli_num_rows($rstDaftarProduk)): $orderProPen++; ?>
+        function openDialog<?= $orderProPen ?>(){
+            document.getElementById('overlayDial<?= $orderProPen ?>').classList.add('showDial')
+            document.getElementById('contentDial<?= $orderProPen ?>').classList.add('showDial')
+        }
+        function closeDialog<?= $orderProPen ?>(){
+            document.getElementById('overlayDial<?= $orderProPen ?>').classList.remove('showDial')
+            document.getElementById('contentDial<?= $orderProPen ?>').classList.remove('showDial')
+        }
+    <?php endwhile; ?> 
+
     $(document).ready(function() {
         $("select[name='produk']").change(function() {
             var produkID = $(this).val();

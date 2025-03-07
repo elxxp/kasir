@@ -22,7 +22,7 @@ if(isset($_POST['masuk'])){
                 $_SESSION['name'] = $data['name'];
                 $_SESSION['level'] = $data['level'];
                 
-                header( "Refresh:1; url=home.php");
+                header("Refresh:1; url=home.php");
                 $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil masuk</p></div>";
             }
         }else{
@@ -35,6 +35,9 @@ if(isset($_POST['masuk'])){
 
 if(isset($_COOKIE['notAllowed'])){
     $notif = "<div class='show notif yellow' id='notif'><i class='fa-solid fa-circle-exclamation icon'></i><p>sihlakan login terlebih dahulu</p></div>";
+}
+if(isset($_COOKIE['userLogout'])){
+    $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil keluar dari aplikasi</p></div>";
 }
 ?>
 <!DOCTYPE html>

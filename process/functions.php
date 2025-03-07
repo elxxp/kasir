@@ -116,4 +116,44 @@ function statusStok($value) {
         return 'rgb(0 201 0)';
     }
 }
+
+function confirmDialog($action, $message, $postName, $value, $height){
+
+    if($action != 'thisPage'){
+        $a = "action='../process/$action'";
+    }
+    ?>
+
+    <div class="overlayDial" id="overlayDial"></div>
+    <div class="contentDial" id="contentDial" style="height: <?= $height ?>;">
+        <form class="formDial" <?= $a ?> method="post">
+            <p class="title"><i class="fa-solid fa-triangle-exclamation"></i> Konfirmasi aksi</p>
+            <p class="sub"><?= $message ?></p>
+                <div class="buttons">
+                    <button class="noDial" type="button" onclick=closeDialog()>batal</button>
+                    <button class="yesDial" name="<?= $postName ?>" value="<?= $value ?>">hapus</button>
+                </div>
+        </form>
+    </div>
+    
+    <?php
+}
+function confirmDialogCC($action, $title, $sub, $postName, $postNameCC, $messageCC){
+    ?>
+
+    <div class="overlayDial" id="overlayDial"></div>
+    <div class="contentDial" id="contentDial" style="height: <?= $height ?>;">
+        <form class="formDial" action="../process/<?= $action ?>" method="post">
+            <p class="title"><i class="fa-solid fa-triangle-exclamation"></i> Konfirmasi aksi</p>
+            <p class="sub"><?= $message ?></p>
+            <div class="ccInput"><input type="checkbox" name="<?= $postNameCC ?>"><p><?= $messageCC ?></p></div>
+                <div class="buttons">
+                    <button class="noDial" type="button" onclick=closeDialog()>batal</button>
+                    <button class="yesDial" name="<?= $postName ?>" value="<?= $value ?>">hapus</button>
+                </div>
+        </form>
+    </div>
+
+    <?php
+}
 ?>

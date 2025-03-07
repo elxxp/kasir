@@ -8,16 +8,16 @@ pageExcept('kasir');
 if(isset($_POST['updateProduk']) || isset($_POST['deleteProduk'])){
     $idProduk = $_POST['updateProduk'];
 
-    if(isset($_POST['deleteProduk'])){
-        $idProduk = $_POST['idProduk'];
+    // if(isset($_POST['deleteProduk'])){
+    //     $idProduk = $_POST['idProduk'];
 
-        $sqlRemoveProduk = "DELETE FROM produk WHERE produkID = $idProduk";
-        mysqli_query($koneksi, $sqlRemoveProduk);
+    //     $sqlRemoveProduk = "DELETE FROM produk WHERE produkID = $idProduk";
+    //     mysqli_query($koneksi, $sqlRemoveProduk);
 
-        setcookie('statusRemove', 'ok', time() + 1, "/");
-        header('location: ../view/daftar-produk.php');
-        exit;   
-    }
+    //     setcookie('statusRemove', 'ok', time() + 1, "/");
+    //     header('location: ../view/daftar-produk.php');
+    //     exit;   
+    // }
     
     if(isset($_POST['idProduk'])){
         $idProduk = $_POST['idProduk'];
@@ -78,6 +78,7 @@ if(isset($_POST['updateProduk']) || isset($_POST['deleteProduk'])){
     <img src="../lib/images/back.jpg">
     <div class="container">
         <?php require '../_partials/header.php'; ?>
+        <?= confirmDialog('hapus-produk.php', 'Data penjualan yang terkait pada produk ini akan ikut terhapus dan <strong>menyebabkan ketidaksesuaian nilai total data penjualan.</strong>', 'hapusProduk', $idProduk, '120px') ?>
 
         <div class="title">
             <h3 class="title">Edit produk</h3>
@@ -100,7 +101,7 @@ if(isset($_POST['updateProduk']) || isset($_POST['deleteProduk'])){
             <input type="hidden" name="idProduk" value="<?= $idProduk ?>">
             <button class="inForm stack top update" name="updateProduk">update</button>
             <?php if($_SESSION['level'] == 'admin'): ?>
-            <button class="inForm stack delete" name="deleteProduk">delete</button>
+            <button class="inForm stack delete" type="button" onclick=openDialog()>delete</button>
             <?php endif; ?>
         </form>
     

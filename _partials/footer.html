@@ -11,6 +11,15 @@
         document.getElementById('buttonNA').style.opacity = '100%'
     }
 
+    function openDialog(){
+        document.getElementById('overlayDial').classList.add('showDial')
+        document.getElementById('contentDial').classList.add('showDial')
+    }
+    function closeDialog(){
+        document.getElementById('overlayDial').classList.remove('showDial')
+        document.getElementById('contentDial').classList.remove('showDial')
+    }
+
     $(document).ready(function() {
         $('.searchable-dropdown').select2();
     });

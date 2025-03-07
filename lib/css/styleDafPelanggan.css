@@ -143,8 +143,8 @@ input.search {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.515);
 }
-.delete {
-    background-color: rgb(255, 38, 38)!important;
+.edit {
+    background-color: rgb(38, 110, 255)!important;
 }
 
 .data-not-found {

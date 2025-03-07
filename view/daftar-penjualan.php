@@ -106,7 +106,11 @@ if(isset($_COOKIE['statusRemoveFalse'])){
                             <?php if($_SESSION['level'] != 'restocker' && mysqli_num_rows($rstDaftarProduk) == 0){ ?>
                             <form action="../process/hapus-penjualan.php" method="post"><button class="delete" name="hapus" value="<?= $data['penjualanID'] ?>">hapus penjualan</button></form>
                             <?php } else { ?>
-                            <button class="cetak" onclick=print()>cetak penjualan</button>
+                            <form action="../process/print.php" method="post">
+                                <input type="hidden" name="trx" value="<?= $id ?>">
+                                <input type="hidden" name="cust" value="<?= $data['pelangganID'] ?>">
+                                <button class="cetak">cetak penjualan</button>
+                            </form>
                             <?php  } ?>
                             <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
                         </div>

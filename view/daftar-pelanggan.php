@@ -28,6 +28,12 @@ if(isset($_COOKIE['statusRemove'])){
 if(isset($_COOKIE['statusAdd'])){
     $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil menambahkan pelanggan</p></div>";
 }
+if(isset($_COOKIE['statusUpdError'])){
+    $notif = "<div class='show notif yellow' id='notif'><i class='fa-solid fa-circle-exclamation icon'></i><p>pilih pelanggan terlebih dahulu</p></div>";
+}
+if(isset($_COOKIE['statusUpdSuccess'])){
+    $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>perubahan pelanggan berhasil disimpan</p></div>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +110,7 @@ if(isset($_COOKIE['statusAdd'])){
     
                         <div class="buttons">
                             <?php if($_SESSION['level'] != 'restocker'): ?>
-                            <form action="../process/hapus-pelanggan.php" method="post"><button class="delete" name="hapus" value="<?= $data['pelangganID'] ?>">hapus pelanggan</button></form>
+                            <form action="../view/update-pelanggan.php" method="post"><button class="edit" name="updatePelanggan" value="<?= $data['pelangganID'] ?>">edit pelanggan</button></form>
                             <?php endif; ?>                        
                             <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
                         </div>

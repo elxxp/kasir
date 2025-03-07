@@ -1,0 +1,143 @@
+p, h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+hr {
+    margin: 20px 0;
+}
+
+@media print {
+    body {
+        padding: 50px 50px 10px 50px;
+        height: 90vh;
+    }
+    .content-trx {
+        /* border: 0.5px solid black; */
+    }
+    
+    
+    .header {
+        text-align: center;
+    }
+    i.logo {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+    .brand {
+        display: inline;
+    }
+    .brand-det h1 {
+        font-size: 1.5rem;
+    }
+    .brand-det p {
+        font-size: 1rem;
+    }
+    .detail {
+        text-align: right;
+    }
+    .detail h1 {
+        font-size: 1.5rem;
+    }
+    .detail p {
+        font-size: 1rem;
+    }
+    
+    .trx-detail {
+        font-weight: bold;
+    }
+    .detail-data {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    
+    
+    }
+    
+    /* table */
+    .tab-trx-head {
+        display: flex;
+        font-weight: bold;
+    }
+    .box-trx-data {
+        margin: 10px 0;
+    }
+    .tab-trx-data {
+        display: flex;
+        margin-bottom: 7px;
+        border-bottom: 0.5px solid rgb(211, 211, 211);
+    }
+    
+    .tab-nomer {
+        width: 5%;
+        text-align: center;
+    }
+    .tab-produk {
+        width: 40%;
+    }
+    .tab-harga {
+        width: 20%;
+    }
+    .tab-qty {
+        width: 5%;
+        text-align: center;
+    }
+    .subtotal {
+        width: 25%;
+        margin-left: 5%;
+    }
+    
+    .tab-trx-footer {
+        display: flex;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    .tab-total {
+        width: 70%;
+        text-align: right;
+    }
+    .tab-total-data {
+        width: 25%;
+        margin-left: 5%;
+    }
+    
+    
+    svg#code {
+        text-align: center;
+        width: 100%;
+        font-size: 0.8rem;
+    }
+
+    .view {
+        display: none;
+    }
+}
+
+@media screen {
+    body::-webkit-scrollbar {
+        display: none;
+    }
+    .view {
+        position: fixed;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+
+        display: inline;
+        text-align: center;
+        padding-top: 70vh;
+    }
+    button[back] {
+        padding: 10px 25px;
+        background-color: rgba(77, 77, 77, 0.145);
+        border: 0.5px solid rgba(128, 128, 128, 0.145);
+        border-radius: 7px;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+}
+

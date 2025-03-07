@@ -74,8 +74,20 @@ input::-webkit-inner-spin-button {
     width: 100%;
     padding: 35px 0;
 }
+.tab-aksi {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    width: 20px;
+    text-align: center;
+    font-size: 0.65rem!important;
+}
+.tab-aksi.data {
+    cursor: pointer;
+    color: rgba(255, 0, 0, 0.727);
+}
 .tab-produk {
-    width: 140px;
+    width: 120px;
     text-align: left;
     overflow: hidden;
     white-space: nowrap;

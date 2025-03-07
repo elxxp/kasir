@@ -1,0 +1,44 @@
+form {
+    margin-top: 31px;
+}
+form button {
+    margin-top: 79px;
+}
+form .input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    margin-bottom: 5px;
+    width: 100%;
+    background-color: white;
+    border-radius: 7px;
+}
+form .input input {
+    margin-left: 20px;
+    font-weight: 600;
+    width: 98%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    -moz-appearance: textfield;
+}
+form .input i {
+    text-align: center;
+    color: black;
+    width: 25px;
+    margin: 0 20px 0 10px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* inform stack */
+form button.stack {
+    margin: 5px 0 0 0!important;
+}
+form button.stack.top {
+    margin: 40px 0 0 0!important;
+} 

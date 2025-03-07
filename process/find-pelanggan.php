@@ -58,7 +58,7 @@ while ($data = mysqli_fetch_assoc($hasil)) {
 
         <div class="buttons">
             <?php if($_SESSION['level'] != 'restocker'): ?>
-            <form action="../process/hapus-pelanggan.php" method="post"><button class="delete" name="hapus" value="<?= $data['pelangganID'] ?>">hapus pelanggan</button></form>
+            <form action="../view/update-pelanggan.php" method="post"><button class="edit" name="updatePelanggan" value="<?= $data['pelangganID'] ?>">edit pelanggan</button></form>
             <?php endif; ?>                        
             <button onclick=closeDetail<?= $nomer ?>()>tutup</button>
         </div>
