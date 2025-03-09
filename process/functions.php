@@ -138,6 +138,24 @@ function confirmDialog($action, $message, $postName, $value, $height){
     
     <?php
 }
+function confirmDialogDirect($where){
+
+    ?>
+
+    <div class="overlayDial" id="overlayDial"></div>
+    <div class="contentDial" id="contentDial" style="height: 80px;">
+        <form class="formDial">
+            <p class="title"><i class="fa-solid fa-triangle-exclamation"></i> Logout</p>
+            <p class="sub">Keluar dari Aplikasi Kasir?</p>
+                <div class="buttons">
+                    <button class="noDial" type="button" onclick=closeDialog()>kembali</button>
+                    <button class="yesDial" type="button" onclick=logout()>keluar</button>
+                </div>
+        </form>
+    </div>
+    
+    <?php
+}
 function confirmDialogCC($action, $title, $sub, $postName, $postNameCC, $messageCC){
     ?>
 

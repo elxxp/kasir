@@ -77,20 +77,18 @@ if(isset($_POST['tambahProduk'])){
         $qty = $_POST['hapusProdukPenjualan-qty'];
 
         $sqlRemoveProdukPenjualan = "DELETE FROM detailpenjualan WHERE detailID = $idDetail";
-        mysqli_query($koneksi, $sqlRemoveProdukPenjualan);
-
-        //----
+        mysqli_query($koneksi, $sqlRemoveProdukPenjualan); // hapus produk
 
         $sqlCountTotalSubtotal = "SELECT SUM(subtotal) AS totalPembelian FROM detailpenjualan WHERE penjualanID = $id;";
         $rstCountTotalSubtotal = mysqli_query($koneksi, $sqlCountTotalSubtotal);
-        $dataTotal = $rstCountTotalSubtotal->fetch_assoc();
+        $dataTotal = $rstCountTotalSubtotal->fetch_assoc(); // itung ulang total
         $dataTotal['totalPembelian'] != 0? $total = $dataTotal['totalPembelian']: $total = 0;
 
         $sqlUpdTotalPembelian = "UPDATE penjualan SET totalHarga = $total WHERE penjualanID = $id";
-        mysqli_query($koneksi, $sqlUpdTotalPembelian);
+        mysqli_query($koneksi, $sqlUpdTotalPembelian); // update total penjjualan
 
         $sqlUpdStok = "UPDATE produk SET stok = stok + $qty WHERE produkID = $produkID";
-        mysqli_query($koneksi, $sqlUpdStok);
+        mysqli_query($koneksi, $sqlUpdStok); // balikin stok produk
 
         $notif = "<div class='show notif green' id='notif'><i class='fa-solid fa-circle-check icon'></i><p>berhasil menghapus produk</p></div>";
     }
@@ -111,6 +109,18 @@ if(isset($_POST['tambahProduk'])){
             <img src="../lib/images/back.jpg">
             <div class="container">
                 <?php require '../_partials/header.php'; ?>
+
+                <div class="overlayDial" id="overlayDial"></div>
+                <div class="contentDial" id="contentDial" style="height: 100px;">
+                    <form class="formDial" method="post">
+                        <p class="title"><i class="fa-solid fa-triangle-exclamation"></i> Selesaikan penjualan</p>
+                        <p class="sub"><strong>Penjualan tidak dapat diedit atau dihapus</strong>, setelah data penjualan selesai tercatat.</p>
+                            <div class="buttons">
+                                <button class="noDial" type="button" onclick=closeDialog()>kembali</button>
+                                <button class="doneDial" name="addPenjualanDone">selesai</button>
+                            </div>
+                    </form>
+                </div>
 
                 <div class="title">
                     <h3 class="title" style="margin: 0;">Pembuatan struk penjualan</h3>
@@ -210,7 +220,7 @@ $dataTunggalDaftarPenjualan = $rstDaftarPenjualan->fetch_assoc();
         <?php if(mysqli_num_rows($rstDaftarProduk) != 0): ?>
         
         <div class="content-buttons">
-            <form method="post" style="margin: 0;"><button name="addPenjualanDone">selesai</button></form>
+            <form style="margin: 0;"><button type="button" onclick=openDialog()>selesai</button></form>
         </div>
 
         <?php endif; ?>

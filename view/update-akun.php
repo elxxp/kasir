@@ -7,17 +7,6 @@ pageOnly('admin');
 
 if(isset($_POST['updateAkun']) || isset($_POST['deleteAkun'])){
     $idAkun = $_POST['updateAkun'];
-
-    if(isset($_POST['deleteAkun'])){
-        $idAkun = $_POST['idAkun'];
-
-        $sqlRemoveAkun = "DELETE FROM user WHERE id = $idAkun";
-        mysqli_query($koneksi, $sqlRemoveAkun);
-
-        setcookie('statusRemove', 'ok', time() + 1, "/");
-        header('location: ../view/daftar-akun.php');
-        exit;
-    }
     
     if(isset($_POST['idAkun'])){
         $idAkun = $_POST['idAkun'];
@@ -72,6 +61,7 @@ if(isset($_POST['updateAkun']) || isset($_POST['deleteAkun'])){
     <img src="../lib/images/back.jpg">
     <div class="container">
         <?php require '../_partials/header.php'; ?>
+        <?= confirmDialog('hapus-akun.php', 'Akun yang terhapus <strong>tidak dapat dikembalikan.</strong>', 'hapusAkun', $akun['id'], '80px') ?>
 
         <div class="title">
             <h3 class="title">Edit akun</h3>
@@ -90,7 +80,7 @@ if(isset($_POST['updateAkun']) || isset($_POST['deleteAkun'])){
             </div>
             <input type="hidden" name="idAkun" value="<?= $akun['id'] ?>">
             <button class="inForm stack top update" name="updateAkun">update</button>
-            <button class="inForm stack delete" name="deleteAkun">delete</button>
+            <button class="inForm stack delete" type="button" onclick=openDialog()>delete</button>
         </form>
     
         <div class="content-buttons">

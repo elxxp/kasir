@@ -48,6 +48,18 @@ if(isset($_COOKIE['notAllowed'])){
     <div class="container">
         <?php require '../_partials/header.php'; ?>
 
+        <div class="overlayDial" id="overlayDial"></div>
+        <div class="contentDial" id="contentDial" style="height: 80px;">
+            <form class="formDial">
+                <p class="title">Logout</p>
+                <p class="sub">Keluar dari Aplikasi Kasir?</p>
+                    <div class="buttons">
+                        <button class="noDial" type="button" onclick=closeDialog()>kembali</button>
+                        <button class="yesDial" type="button" onclick=logout()>keluar</button>
+                    </div>
+            </form>
+        </div>
+
         <div class="content-welcome">
             <h1>Welcome back</h1>
             <p><?= $_SESSION['name'] ?>!</p>
@@ -61,7 +73,7 @@ if(isset($_COOKIE['notAllowed'])){
             <?php if($_SESSION['level'] == 'admin'){ ?>
             <div class="menu" style="animation: objectIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);" onclick="dafAkun()"><i class="fa-regular fa-user-tie menu-icon"></i><div class="menu-detail"><h5>Daftar akun</h5><p><?= $jumAkun ?> Akun aktif</p></div></div>
             <?php } else { ?>
-            <div class="menu" style="animation: objectIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);" onclick="logout()"><i class="fa-regular fa-person-to-door menu-icon"></i><div class="menu-detail"><h5>Logout</h5><p>keluar dari Aplikasi Kasir</p></div></div>
+            <div class="menu" style="animation: objectIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1);" onclick="openDialog()"><i class="fa-regular fa-person-to-door menu-icon"></i><div class="menu-detail"><h5>Logout</h5><p>keluar dari Aplikasi Kasir</p></div></div>
             <?php } ?>
             </center>
         </div>

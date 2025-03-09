@@ -190,6 +190,7 @@ button.inForm.update {
 /* confirm dialog */
 .overlayDial {
     display: none;
+    z-index: 49;
     border-radius: 15px;
     position: fixed;
     top: 0;
@@ -262,6 +263,9 @@ button.noDial {
 }
 button.yesDial {
     color: red;
+}
+button.doneDial {
+    color: rgb(38, 110, 255);
 }
 
 .formDial p.title {
